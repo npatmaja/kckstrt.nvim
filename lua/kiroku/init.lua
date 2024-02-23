@@ -59,8 +59,6 @@ function kiroku.format_cmp(entry, vim_item)
 	local cwd = vim.fn.getcwd()
 	local is_markdown = entry.context.filetype == "markdown"
 
-	vim.notify('cwd' .. cwd .. ' home: ' .. config.home)
-	vim.notify(vim.inspect(config))
 	if config.home == cwd and is_markdown and entry.completion_item.detail ~= nil then
 		-- get the front matter
 		local title = get_title_frontmatter(entry.completion_item.detail)

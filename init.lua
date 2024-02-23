@@ -481,7 +481,7 @@ end, { desc = '[S]earch [File] in file browser' })
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'markdown' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -631,7 +631,7 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   gopls = {},
-  pyright = {},
+  -- pyright = {},
   marksman = {},
   templ = {},
   -- rust_analyzer = {},
@@ -726,7 +726,6 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
-    { name = 'buffer' },
   },
   formatting = {
     fields = { 'abbr', 'kind', 'menu' },

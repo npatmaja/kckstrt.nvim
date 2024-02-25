@@ -734,6 +734,15 @@ cmp.setup {
   },
 }
 
+-- [[ indent blankline ]]
+require('ibl').setup({
+  scope = {
+    enabled = true,
+    show_start = true,
+    highlight = { 'Function', 'Label' }
+  }
+})
+
 -- [[ Configure IncRename ]]
 vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")

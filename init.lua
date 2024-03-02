@@ -444,12 +444,6 @@ vim.keymap.set('n', '<leader>ld', vim.diagnostic.setloclist, { desc = 'Open diag
 -- Activate spell check
 vim.keymap.set('n', '<leader>sen', '<cmd>set spell! spelllang=en<cr>', { desc = 'Toggle [s]pell language [en]glish' })
 
--- Increment rename
-vim.keymap.set("n", "<leader>rn", function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true, desc = '[R]e[n]ame' })
-
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

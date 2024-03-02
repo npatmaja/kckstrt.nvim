@@ -273,6 +273,12 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
+    ft = { 'markdown' },
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -380,6 +386,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
+  pickers = {
+    find_files = {
+      hidden = true,
+      find_command = {
+        'rg',
+        '--files',
+        '--hidden',
+        '-g',
+        '!**/.git/*',
+      }
+    },
+  },
   defaults = {
     mappings = {
       i = {
@@ -393,7 +411,8 @@ require('telescope').setup {
   },
   extensions = {
     file_browser = {
-      theme = 'dropdown',
+      cwd = vim.fn.expand('%:p:h'),
+      hidden = { file_browser = true, folder_browser = true },
       mappings = {
         ['i'] = {
           ['C-w'] = function() vim.cmd('normal vbd') end,

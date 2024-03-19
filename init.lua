@@ -177,18 +177,25 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   -- Theme inspired by Atom
+  --   'navarasu/onedark.nvim',
+  --   priority = 1000,
+  --   lazy = false,
+  --   config = function()
+  --     require('onedark').setup {
+  --       -- Set a style preset. 'dark' is default.
+  --       style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
+  --     }
+  --     require('onedark').load()
+  --   end,
+  -- },
+
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
+    "folke/tokyonight.nvim",
     lazy = false,
-    config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
-      }
-      require('onedark').load()
-    end,
+    priority = 1000,
+    opts = {}
   },
 
   {
@@ -375,6 +382,12 @@ vim.keymap.set('n', '<leader>ld', vim.diagnostic.setloclist, { desc = 'Open diag
 -- Activate spell check
 vim.keymap.set('n', '<leader>sen', '<cmd>set spell! spelllang=en<cr>', { desc = 'Toggle [s]pell language [en]glish' })
 
+-- Increment rename
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true, desc = '[R]e[n]ame' })
+
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -385,6 +398,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- [[ theme ]]
+vim.cmd [[colorscheme tokyonight-moon]]
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -776,11 +792,6 @@ require('ibl').setup({
     highlight = { 'Function', 'Label' }
   }
 })
-
--- [[ Configure IncRename ]]
-vim.keymap.set("n", "<leader>rn", function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true, desc = '[R]e[n]ame' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

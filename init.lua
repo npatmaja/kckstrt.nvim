@@ -338,21 +338,24 @@ require('lazy').setup({
     -- Incremental rename
     "smjonas/inc-rename.nvim",
     config = function()
-      require("inc_rename").setup()
+      require("inc_rename").setup({})
     end,
   },
 
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && npm install',
     ft = { 'markdown' },
+    build = function() vim.fn["mkdp#util#install"]() end,
   },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   require 'kickstart.plugins.autoformat',
   require 'kickstart.plugins.debug',
+
+  -- Ziglang
+  'ziglang/zig.vim',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -584,7 +587,7 @@ vim.filetype.add({
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'markdown', 'templ' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'markdown', 'templ', 'zig' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -726,6 +729,7 @@ local servers = {
   -- pyright = {},
   marksman = {},
   templ = {},
+  zls = {},
   -- rust_analyzer = {},
   -- tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs', 'templ' } },

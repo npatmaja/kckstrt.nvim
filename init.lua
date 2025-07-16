@@ -63,6 +63,65 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
+-- Folding
+vim.o.foldenable = false
+vim.o.foldmethod = 'indent'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.foldnestmax = 10
+
+-- [[ Folding Commands ]]
+-- Toggle folding on/off globally
+vim.api.nvim_create_user_command('FoldToggle', function()
+  if vim.o.foldenable then
+    vim.o.foldenable = false
+    print 'Folding disabled'
+  else
+    vim.o.foldenable = true
+    print 'Folding enabled'
+  end
+end, { desc = 'Toggle folding on/off' })
+
+-- Fold all functions/blocks in current buffer
+vim.api.nvim_create_user_command('FoldAll', function()
+  vim.o.foldenable = true
+  vim.cmd 'normal! zM' -- Close all buffer
+  print 'All folds closed'
+end, { desc = 'Close all folds in buffer' })
+
+-- Unfold all in current buffer
+vim.api.nvim_create_user_command('UnfoldAll', function()
+  vim.o.foldenable = true
+  vim.cmd 'normal! zR' -- Open all folds
+  print 'All folds openend'
+end, { desc = 'Open all folds in buffer' })
+
+-- Fold current context (function/class/block)
+vim.api.nvim_create_user_command('FoldContext', function()
+  vim.o.foldenable = true
+  -- move to beginning of current function/block and fold it
+  vim.cmd 'normal! [z' -- Go to start of current fold
+  vim.cmd 'normal! zc' -- Close current fold
+  print 'Current context folded'
+end, { desc = 'Fold current function/block context' })
+
+-- Smart fold level - fold to specific indentation level
+vim.api.nvim_create_user_command('FoldLevel', function(opts)
+  local level = tonumber(opts.args) or 1
+  vim.o.foldenable = true
+  vim.o.foldlevel = level
+  print('Fold level set to ' .. level)
+end, {
+  nargs = '?',
+  desc = 'Set fold level (0=all folded, 99=all open)',
+})
+
+-- [[ Fold related command keymaps ]]
+vim.keymap.set('n', '<leader>zz', '<cmd>FoldToggle<CR>', { desc = 'Toggle folding' })
+vim.keymap.set('n', '<leader>za', '<cmd>FoldAll<CR>', { desc = 'Fold all' })
+vim.keymap.set('n', '<leader>zx', '<cmd>UnfoldAll<CR>', { desc = 'Unfold all' })
+vim.keymap.set('n', '<leader>zc', '<cmd>FoldContext<CR>', { desc = 'Fold current context' })
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -744,6 +803,51 @@ require('lazy').setup({
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
+
+      -- keymap
+      keymap = {
+        preset = 'default',
+        ['<CR>'] = { 'accept', 'fallback' },
+        ['<C-n>'] = { 'select_next', 'fallback' },
+        ['<C-p>'] = { 'select_prev', 'fallback' },
+        ['<C-b'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-f'] = { 'scroll_documentation_up', 'fallback' },
+        ['<Tab>'] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_and_accept()
+            end
+          end,
+          'snippet_forward',
+          'fallback',
+        },
+        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+        -- ['<C-Space>'] = cmp.mapping.complete {},
+        -- ['<CR>'] = cmp.mapping.confirm {
+        --   behavior = cmp.ConfirmBehavior.Replace,
+        --   select = true,
+        -- },
+        -- ['<Tab>'] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_next_item()
+        --   elseif luasnip.expand_or_locally_jumpable() then
+        --     luasnip.expand_or_jump()
+        --   else
+        --     fallback()
+        --   end
+        -- end, { 'i', 's' }),
+        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+        --   if cmp.visible() then
+        --     cmp.select_prev_item()
+        --   elseif luasnip.locally_jumpable(-1) then
+        --     luasnip.jump(-1)
+        --   else
+        --     fallback()
+        --   end
+        -- end, { 'i', 's' }),
+      },
     },
   },
 

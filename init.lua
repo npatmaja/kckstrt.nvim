@@ -627,6 +627,7 @@ require('lazy').setup({
       -- NOTE: Iterate the LSP server config and call the `nvim.lsp.config`. See https://neovim.io/doc/user/lsp.html#vim.lsp.config()
       for k, v in pairs(servers) do
         vim.lsp.config(k, v)
+        vim.lsp.enable(k)
       end
     end,
   },

@@ -119,7 +119,7 @@ end, {
 -- [[ Fold related command keymaps ]]
 vim.keymap.set('n', '<leader>zz', '<cmd>FoldToggle<CR>', { desc = 'Toggle folding' })
 vim.keymap.set('n', '<leader>za', '<cmd>FoldAll<CR>', { desc = 'Fold all' })
-vim.keymap.set('n', '<leader>zx', '<cmd>UnfoldAll<CR>', { desc = 'Unfold all' })
+vim.keymap.set('n', '<leader>zo', '<cmd>UnfoldAll<CR>', { desc = 'Unfold all' })
 vim.keymap.set('n', '<leader>zc', '<cmd>FoldContext<CR>', { desc = 'Fold current context' })
 
 -- [[ Basic Keymaps ]]
@@ -211,7 +211,7 @@ require('lazy').setup({
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -247,7 +247,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
   -- Useful plugin to show you pending keybinds.
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -328,7 +328,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -457,7 +457,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -929,7 +929,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     opts = {},
     keys = {
-      { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next tab' },
+      { '<Tab>',   '<cmd>BufferLineCycleNext<cr>', desc = 'Next tab' },
       { '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev tab' },
     },
   },

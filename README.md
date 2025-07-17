@@ -12,4 +12,8 @@
 
 A personalized neovim config based on the [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
 
+## TODOs
+- [ ] Modulize the folding related command
+- [ ] [additonal modules from kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim/tree/master/lua/kickstart)
+
 

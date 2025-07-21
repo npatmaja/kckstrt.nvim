@@ -16,8 +16,9 @@ A personalized neovim config based on the [kickstart.nvim](https://github.com/nv
 - [ ] Modulize the folding related command
 - [ ] [additonal modules from kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim/tree/master/lua/kickstart)
 - Consider the following plugins
-  - [ ] [render-markdown](https://github.com/MeanderingProgrammer/render-markdown.nvim)
+  - [x] [render-markdown](https://github.com/MeanderingProgrammer/render-markdown.nvim)
   - [ ] [venn.nvim](https://github.com/jbyuki/venn.nvim) for drawing ascii diagrams
+  - [ ] [Java programming setup](https://github.com/nvim-java/nvim-java)
 
 
 

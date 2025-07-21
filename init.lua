@@ -375,6 +375,28 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          file_browser = {
+            hidden = { file_browser = true, folder_browser = true },
+            respect_gitignore = true,
+          },
+        },
+        -- Show hidden files but keep git and node_modules hidden
+        pickers = {
+          find_files = {
+            hidden = true,
+            find_command = {
+              'rg',
+              '--files',
+              '--hidden',
+              '--no-ignore-vcs',
+              '-g',
+              '!**/.git/*',
+              '-g',
+              '!**/node_modules/*',
+              '-g',
+              '!**/.repro/*',
+            },
+          },
         },
       }
 

@@ -63,6 +63,25 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 
+-- Split screen
+-- Configure how new splits should be opened
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- Preview substitutions live, as you type!
+vim.o.inccommand = 'split'
+
+-- Show which line your cursor is on
+vim.o.cursorline = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.o.scrolloff = 10
+
+-- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
+-- instead raise a dialog asking if you wish to save the current file(s)
+-- See `:help 'confirm'`
+vim.o.confirm = true
+
 -- Folding
 vim.o.foldenable = false
 vim.o.foldmethod = 'indent'
@@ -124,6 +143,10 @@ vim.keymap.set('n', '<leader>zc', '<cmd>FoldContext<CR>', { desc = 'Fold current
 
 -- [[ Basic Keymaps ]]
 
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -141,6 +164,24 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>wq', '<cmd>wq<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>wy', '<cmd>bufdo write<CR>', { noremap = true, silent = true }) -- write all changing buffers
+vim.keymap.set('n', '<leader>ra', '<cmd>bufdo e<CR>', { noremap = true, silent = true })     -- [R]eload [All] buffers
+
+-- Keybinds to make split navigation easier.
+--  Use CTRL+<hjkl> to switch between windows
+--
+--  See `:help wincmd` for a list of all window commands
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<leader>+', '<cmd>vertical resize +5<CR>', { desc = 'Increase vertical size 5 more' })
+vim.keymap.set('n', '<leader>-', '<cmd>vertical resize -5<CR>', { desc = 'Decrease vertical size 5 more' })
+
+-- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
+-- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
+-- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
+-- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
+-- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -212,7 +253,7 @@ require('lazy').setup({
   --  The configuration is done below. Search for lspconfig to find it below.
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -255,7 +296,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
   -- Useful plugin to show you pending keybinds.
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -337,7 +378,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-file-browser.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',               enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -488,7 +529,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -1006,7 +1047,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     opts = {},
     keys = {
-      { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next tab' },
+      { '<Tab>',   '<cmd>BufferLineCycleNext<cr>', desc = 'Next tab' },
       { '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev tab' },
     },
   },

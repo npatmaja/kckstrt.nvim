@@ -941,13 +941,22 @@ require('lazy').setup({
             if cmp.snippet_active() then
               return cmp.accept()
             else
-              return cmp.select_and_accept()
+              return cmp.select_next()
             end
           end,
           'snippet_forward',
           'fallback',
         },
-        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+        ['<S-Tab>'] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.snippet_backward()
+            else
+              return cmp.select_prev()
+            end
+          end,
+          'snippet_backward', 'fallback'
+        },
         -- ['<C-Space>'] = cmp.mapping.complete {},
         -- ['<CR>'] = cmp.mapping.confirm {
         --   behavior = cmp.ConfirmBehavior.Replace,

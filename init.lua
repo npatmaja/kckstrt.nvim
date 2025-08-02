@@ -166,6 +166,12 @@ vim.keymap.set('n', '<leader>wq', '<cmd>wq<CR>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>wy', '<cmd>bufdo write<CR>', { noremap = true, silent = true }) -- write all changing buffers
 vim.keymap.set('n', '<leader>ra', '<cmd>bufdo e<CR>', { noremap = true, silent = true })     -- [R]eload [All] buffers
 
+-- INSERT MODE MOVEMENT (useful on small keyboards)
+vim.keymap.set("i", "<C-h>", "<Left>", { desc = "Move left in insert" })
+vim.keymap.set("i", "<C-j>", "<Down>", { desc = "Move down in insert" })
+vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Move up in insert" })
+vim.keymap.set("i", "<C-l>", "<Right>", { desc = "Move right in insert" })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -1090,6 +1096,25 @@ require('lazy').setup({
     keys = {
       { '<leader>uu', vim.cmd.UndotreeToggle, desc = 'Toggle Undotree side bar' },
     }
+  },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart

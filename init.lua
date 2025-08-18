@@ -212,7 +212,7 @@ require('lazy').setup({
   --  The configuration is done below. Search for lspconfig to find it below.
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -255,7 +255,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
   -- Useful plugin to show you pending keybinds.
-  { -- Useful plugin to show you pending keybinds.
+  {                     -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -337,7 +337,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-file-browser.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',               enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -472,9 +472,10 @@ require('lazy').setup({
     'mason-org/mason-lspconfig.nvim',
     opts = {
       ensure_installed = {
+        'lua-language-server',
         'lua_ls',
-        'gopls',
-        'marksman',
+        -- 'gopls',
+        -- 'marksman',
         'templ',
         'zls',
         'html',
@@ -488,7 +489,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',    opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -704,6 +705,7 @@ require('lazy').setup({
           filetypes = { 'gohtml', 'templ', 'html' },
           init_options = { userLanguages = { templ = 'html' } },
         },
+        ts_ls = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -720,6 +722,23 @@ require('lazy').setup({
           },
         },
       }
+
+      local inst = require('mason-installer')
+      inst.setup({
+        ensure_installed = {
+          gopls = {},
+          'lua-language-server',
+          'typescript-language-server',
+        }
+      })
+
+      vim.api.nvim_create_autocmd('VimEnter', {
+        group = vim.api.nvim_create_augroup('msn-ins', {}),
+        callback = function()
+          vim.api.nvim_del_augroup_by_name('msn-ins')
+          inst.install_lsps()
+        end
+      })
 
       -- NOTE: Iterate the LSP server config and call the `nvim.lsp.config`. See https://neovim.io/doc/user/lsp.html#vim.lsp.config()
       for k, v in pairs(servers) do
@@ -1006,7 +1025,7 @@ require('lazy').setup({
     event = 'VeryLazy',
     opts = {},
     keys = {
-      { '<Tab>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next tab' },
+      { '<Tab>',   '<cmd>BufferLineCycleNext<cr>', desc = 'Next tab' },
       { '<S-Tab>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev tab' },
     },
   },

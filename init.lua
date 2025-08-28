@@ -640,6 +640,17 @@ require('lazy').setup({
             end
           end
 
+          map('<leader>dd', function()
+            vim.diagnostic.open_float()
+          end, 'Open Diagnostic Floating Window')
+          vim.diagnostic.config({
+            virtual_text = {
+              -- source = "always",  -- Or "if_many"
+              prefix = '●', -- Could be '■', '▎', 'x'
+            },
+            severity_sort = true,
+          })
+
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed

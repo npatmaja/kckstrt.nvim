@@ -418,23 +418,34 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        defaults = {
+          file_ignore_patterns = {
+            -- Add patterns you want to ignore (optional)
+            "node_modules",
+            ".git/",
+            ".venv",
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
           file_browser = {
             hidden = { file_browser = true, folder_browser = true },
-            respect_gitignore = true,
+            respect_gitignore = false,
           },
         },
         -- Show hidden files but keep git and node_modules hidden
         pickers = {
           find_files = {
             hidden = true,
+            no_ignore = true,
+            no_ignore_parent = true,
             find_command = {
               'rg',
               '--files',
               '--hidden',
+              '--no-ignore',
               '--no-ignore-vcs',
               '-g',
               '!**/.git/*',

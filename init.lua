@@ -537,6 +537,7 @@ require('lazy').setup({
         'zls',
         'html',
         'tailwindcss',
+        'ols',
       },
     },
     dependencies = {
@@ -792,6 +793,9 @@ require('lazy').setup({
             },
           },
         },
+
+        -- odin
+        ols = {},
       }
 
       -- NOTE: Iterate the LSP server config and call the `nvim.lsp.config`. See https://neovim.io/doc/user/lsp.html#vim.lsp.config()

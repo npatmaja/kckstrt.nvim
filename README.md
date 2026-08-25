@@ -20,5 +20,6 @@ A personalized neovim config based on the [kickstart.nvim](https://github.com/nv
   - [ ] [venn.nvim](https://github.com/jbyuki/venn.nvim) for drawing ascii diagrams
   - [ ] [Java programming setup](https://github.com/nvim-java/nvim-java)
 
-
+## Command
+- `Lazy restore`: Restore the package based on the `lazy.lock`
 

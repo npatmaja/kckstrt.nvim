@@ -765,12 +765,6 @@ require('lazy').setup({
         gopls = {},
         -- pyright = {},
         marksman = {},
-        templ = {},
-        zls = {
-          mason = false,
-          filetypes = { 'zig', 'zon' },
-          settings = { zls = { enable_build_on_save = true } },
-        },
         -- rust_analyzer = {},
         -- tsserver = {},
         html = { filetypes = { 'html', 'twig', 'hbs', 'templ' } },
@@ -796,6 +790,12 @@ require('lazy').setup({
 
         -- odin
         ols = {},
+
+        nixd = {
+          formatting = {
+            command = { "nixfmt" },
+          },
+        },
       }
 
       -- NOTE: Iterate the LSP server config and call the `nvim.lsp.config`. See https://neovim.io/doc/user/lsp.html#vim.lsp.config()

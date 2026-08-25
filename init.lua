@@ -526,25 +526,9 @@ require('lazy').setup({
   },
 
   {
-    -- LSP Configuration & Plugins
-    'mason-org/mason-lspconfig.nvim',
-    opts = {
-      ensure_installed = {
-        'lua_ls',
-        'gopls',
-        'marksman',
-        'templ',
-        'zls',
-        'html',
-        'tailwindcss',
-        'ols',
-      },
-    },
+    -- LSP Configuration
+    'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'mason-org/mason.nvim', opts = {} },
-      'neovim/nvim-lspconfig',
-
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',    opts = {} },
@@ -572,8 +556,8 @@ require('lazy').setup({
       --  - Symbol Search
       --  - and more!
       --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
+      -- Language Servers are external tools installed separately from Neovim.
+      -- They are provided by Nix and must be available on `$PATH`.
       --
       -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
       -- and elegantly composed help section, `:help lsp-vs-treesitter`
@@ -740,7 +724,7 @@ require('lazy').setup({
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+      --  Feel free to add/remove LSPs here, provided they are installed through Nix.
       --
       --  Add any additional override configuration in the following tables. Available keys are:
       --  - cmd (table): Override the default command used to start the server

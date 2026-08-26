@@ -167,10 +167,10 @@ vim.keymap.set('n', '<leader>wy', '<cmd>bufdo write<CR>', { noremap = true, sile
 vim.keymap.set('n', '<leader>ra', '<cmd>bufdo e<CR>', { noremap = true, silent = true })     -- [R]eload [All] buffers
 
 -- INSERT MODE MOVEMENT (useful on small keyboards)
-vim.keymap.set("i", "<C-h>", "<Left>", { desc = "Move left in insert" })
-vim.keymap.set("i", "<C-j>", "<Down>", { desc = "Move down in insert" })
-vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Move up in insert" })
-vim.keymap.set("i", "<C-l>", "<Right>", { desc = "Move right in insert" })
+vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Move left in insert' })
+vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move down in insert' })
+vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move up in insert' })
+vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Move right in insert' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -421,9 +421,9 @@ require('lazy').setup({
         defaults = {
           file_ignore_patterns = {
             -- Add patterns you want to ignore (optional)
-            "node_modules",
-            ".git/",
-            ".venv",
+            'node_modules',
+            '.git/',
+            '.venv',
           },
         },
         extensions = {
@@ -531,7 +531,7 @@ require('lazy').setup({
     dependencies = {
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',    opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
@@ -639,13 +639,13 @@ require('lazy').setup({
           map('<leader>dd', function()
             vim.diagnostic.open_float()
           end, 'Open Diagnostic Floating Window')
-          vim.diagnostic.config({
+          vim.diagnostic.config {
             virtual_text = {
               -- source = "always",  -- Or "if_many"
               prefix = '●', -- Could be '■', '▎', 'x'
             },
             severity_sort = true,
-          })
+          }
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -777,7 +777,7 @@ require('lazy').setup({
 
         nixd = {
           formatting = {
-            command = { "nixfmt" },
+            command = { 'nixfmt' },
           },
         },
       }
@@ -838,7 +838,7 @@ require('lazy').setup({
     build = function()
       -- this will download prebuild binary or try to use existing rustup toolchain to build from source
       -- (if you are using lazy you can use gb for rebuilding a plugin if needed)
-      require("fff.download").download_or_build_binary()
+      require('fff.download').download_or_build_binary()
     end,
     -- if you are using nixos
     -- build = "nix run .#release",
@@ -853,32 +853,38 @@ require('lazy').setup({
     lazy = false,
     keys = {
       {
-        "ff", -- try it if you didn't it is a banger keybinding for a picker
-        function() require('fff').find_files() end,
+        'ff', -- try it if you didn't it is a banger keybinding for a picker
+        function()
+          require('fff').find_files()
+        end,
         desc = 'FFFind files',
       },
       {
-        "fg",
-        function() require('fff').live_grep() end,
+        'fg',
+        function()
+          require('fff').live_grep()
+        end,
         desc = 'LiFFFe grep',
       },
       {
-        "fz",
+        'fz',
         function()
-          require('fff').live_grep({
+          require('fff').live_grep {
             grep = {
-              modes = { 'fuzzy', 'plain' }
-            }
-          })
+              modes = { 'fuzzy', 'plain' },
+            },
+          }
         end,
         desc = 'Live fffuzy grep',
       },
       {
-        "fc",
-        function() require('fff').live_grep({ query = vim.fn.expand("<cword>") }) end,
+        'fc',
+        function()
+          require('fff').live_grep { query = vim.fn.expand '<cword>' }
+        end,
         desc = 'Search current word',
       },
-    }
+    },
   },
 
   { -- Collection of various small independent plugins/modules
@@ -1018,7 +1024,8 @@ require('lazy').setup({
               return cmp.select_prev()
             end
           end,
-          'snippet_backward', 'fallback'
+          'snippet_backward',
+          'fallback',
         },
         -- ['<C-Space>'] = cmp.mapping.complete {},
         -- ['<CR>'] = cmp.mapping.confirm {
@@ -1092,28 +1099,32 @@ require('lazy').setup({
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'zig' },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    -- There are additional nvim-treesitter modules that you can use to interact
-    -- with nvim-treesitter. You should go explore a few and see what interests you:
-    --
-    --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-    --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-    --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    lazy = false,
+    config = function()
+      local treesitter = require 'nvim-treesitter'
+      treesitter.setup()
+      treesitter.install {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'zig',
+      }
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
+        end,
+      })
+    end,
   },
 
   -- Highlight todo, notes, etc in comments
@@ -1167,25 +1178,25 @@ require('lazy').setup({
     'mbbill/undotree',
     keys = {
       { '<leader>uu', vim.cmd.UndotreeToggle, desc = 'Toggle Undotree side bar' },
-    }
+    },
   },
 
   {
-    "christoomey/vim-tmux-navigator",
+    'christoomey/vim-tmux-navigator',
     cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-      "TmuxNavigatorProcessList",
+      'TmuxNavigateLeft',
+      'TmuxNavigateDown',
+      'TmuxNavigateUp',
+      'TmuxNavigateRight',
+      'TmuxNavigatePrevious',
+      'TmuxNavigatorProcessList',
     },
     keys = {
-      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+      { '<c-h>',  '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>',  '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>',  '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>',  '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
     },
   },
 

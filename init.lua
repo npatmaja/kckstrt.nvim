@@ -780,6 +780,7 @@ require('lazy').setup({
             command = { 'nixfmt' },
           },
         },
+        svelte = {},
       }
 
       -- NOTE: Iterate the LSP server config and call the `nvim.lsp.config`. See https://neovim.io/doc/user/lsp.html#vim.lsp.config()
@@ -1118,6 +1119,8 @@ require('lazy').setup({
         'vim',
         'vimdoc',
         'zig',
+        'svelte',
+        'nix',
       }
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)

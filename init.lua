@@ -749,7 +749,7 @@ require('lazy').setup({
         gopls = {},
         -- pyright = {},
         marksman = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- tsserver = {},
         html = { filetypes = { 'html', 'twig', 'hbs', 'templ' } },
         tailwindcss = {

@@ -1121,6 +1121,8 @@ require('lazy').setup({
         'zig',
         'svelte',
         'nix',
+        'fish',
+        'rust',
       }
       vim.api.nvim_create_autocmd('FileType', {
         callback = function(args)
